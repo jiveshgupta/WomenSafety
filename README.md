@@ -8,11 +8,16 @@ Send SOS e-mails to added contacts .
 # Table of contents
 
 # Technology Stack
-1. CSS
-2. EJS
-3. Noje.js
-4. JavaScript
-5. MongoDB
+1. HTML
+2. CSS
+3. JavaScript
+4. EJS
+5. Noje.js
+6. Express
+7. jQuery
+8. Google Map Api
+9. nodemailer
+10. MongoDB
 
 # Contributors
 1. Jivesh Gupta
