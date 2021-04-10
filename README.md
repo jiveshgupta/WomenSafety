@@ -29,6 +29,7 @@ Note- For login as administator. Login Id - admin@gmail.com, password - admin an
 
 # Links
 YouTube - https://youtu.be/tp5cid6CqPc
+PPT link - https://drive.google.com/file/d/16Q5EhR6-9IjBr8JskuQ0UsgAImyC2i6L/view?usp=drivesdk 
 
 # Made at
 ![hack](https://user-images.githubusercontent.com/81297119/114281657-411d3000-9a5d-11eb-844b-21baef54c5e7.png)
