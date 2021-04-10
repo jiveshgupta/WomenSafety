@@ -1,0 +1,146 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+nav{
+    display: flex;
+    /* background-image: url(https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=500&q=60); */
+    background-image: url(../images/nightsky.jpg);
+    color: white;
+    font : 1.5em bold;
+    padding: 2%;
+}
+
+nav{
+    display: flex;
+}
+#leftNav{
+    width: 50%;
+    list-style: none;
+    display: flex;
+}
+
+#leftNav li{
+    display: flex;
+    padding: 0% 5%;
+}
+#rightNav{
+    display: flex;
+    list-style: none;
+    flex-direction: row-reverse;
+    width: 50%;
+}
+#rightNav li{
+    display: flex;
+    padding: 0% 5%;
+}
+
+.stage{
+    display: flex;
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.container{
+    display: flex;
+    width: 60%;
+    height: 70%;
+    background-color: gray;
+    border: 1px solid grey;
+}
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 30%;
+    height: 56%;
+    padding: 1%;
+    left: 50%;
+    /* display: none; */
+    background-color: rgb(224, 24, 101);
+    position: absolute;
+    transform: translateX(0%);
+    
+    transition: transform 4s;
+}
+ .overlayContainer{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 30%;
+    height: 56%;
+    padding: 5%;
+    /* display: none; */
+    transform: translateX(0%);
+    position: absolute;
+    
+    transition: transform 4s;
+}
+.btn{
+    padding: 1.5%;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid white;
+    background-color: lawngreen;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5%;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1%;
+    margin: 2%;
+}
+
+.moveObject .formContainer{
+    transform: translateX(-100%);
+    transition: transform 4s;
+}
+
+.moveObject .registerContainer{
+    z-index: 2;
+    transition: 4s;
+}
+
+.moveObject .overlayContainer{
+    transform: translateX(100%);
+    transition: transform 4s;
+}
+
+.moveObject .overlayLogin{
+    z-index: 2;
+    transition: 4s;
+}
+
+.aa{
+    transform: translateX(-100%);
+    transition: 2s;
+}
+.bb{
+    transform: translateX(-100%);
+    
+    z-index: -2;
+    transition: all 2s;
+}
+.cc{
+    transform: translateX(100%);
+    transition: 2s;
+}
+.dd{
+    transform: translateX(100%);
+    /* transition: 2s; */
+    z-index: -2;
+    transition: all 2s;
+}

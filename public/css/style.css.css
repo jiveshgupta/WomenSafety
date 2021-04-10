@@ -1,0 +1,52 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    color: black;
+}
+.navbar{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    background-color: teal;
+    height: 10vh;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    font-size: 20px;
+    z-index: 10;
+}
+.icon{
+    position: absolute;
+    left: 10px;
+    border: 1px solid black;
+    margin: auto 15px;
+}
+.navlist{
+    position: absolute;
+    right: 10px;
+    margin: auto;
+}
+.navlist ul{
+    list-style: none;
+    display: flex;
+}
+
+.navlist ul li a{
+    /* padding: 5px; */
+    border: 1px solid black;
+    margin: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.navlist ul li a:hover{
+    text-decoration: underline;
+}
+.stage{
+    
+    display: flex;
+    justify-content: space-evenly;
+    /* height: 190vh;
+    overflow: hidden; */
+    border: 1px solid black;
+    background: #afc4da;
+}

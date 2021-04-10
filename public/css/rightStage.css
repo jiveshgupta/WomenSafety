@@ -1,0 +1,11 @@
+.right-stage{
+    left: 80%;
+    height: 100%;
+    width: 18%;
+    border: 1px solid blue;
+    background: white;
+    margin-top: 5px;
+    /* position: absolute;
+    left: 81%; */
+    background: transparent;
+}

@@ -1,0 +1,88 @@
+
+.form-group{
+    margin: 15px 0px;
+    font-size: 20px;
+}
+.inputText{
+    font-size: 15px;
+}
+
+
+.imageArea{
+    position: relative;
+    border: 1px solid black;
+    height: 300px;
+}
+.img-left{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 5%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+.img-right{
+    
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 5%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.del-img{
+    position: absolute;
+    right: 6%;
+    opacity: 0.5;
+}
+.img-index{
+    border: 1px solid tomato;
+    /* position: absolute; */
+    /* right: 6%; */
+    /* bottom: 0; */
+    background-color:transparent;
+    z-index: 2;
+    color: white;
+}
+.img-nums{
+    border: 1px solid tomato;
+    position: absolute;
+    right: 6%;
+    bottom: 0;
+    background-color:transparent;
+    z-index: 2;
+    color: white;
+}
+.img-tot{
+    border: 1px solid tomato;
+    /* position: absolute;
+    right: 6%;
+    bottom: 0; */
+    background-color:transparent;
+    z-index: 2;
+    color: white;
+}
+#img{
+    display: none;
+}
+.add-img{
+    border: 1px solid black;
+    background: lightgrey;
+    border-radius: 4px;
+    margin: 15px;
+}
+
+.textArea{
+    width: 100%;
+}
+.submit-btn{
+    padding: 5px;
+    width: 30%;
+    margin-top: 10%;
+    margin-left: 35%;
+    font-size: 20px;
+}

@@ -1,0 +1,147 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class='navbar'>
+        <div class="icon">icon</div>
+        <div class='navlist'>
+            <ul>
+                <span id='user-id' style="display: none;">
+                    <%= user._id %>
+                </span>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/chats">Chats</a></li>
+                <li><a href="/notifications">Notifications</a></li>
+                <li><a href="/myCart">My Cart</a></li>
+                <li><a href="/sellItem">Sell Item</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div> -->
+    <%- include ('partials/header.ejs') %>
+    <div class="edito">
+        <div class="left-stage-editor"></div>
+        <div class="right-stage-editor"></div>
+        <form action="/updateUserProfile"  enctype="multipart/form-data" class="editi" method="POST">
+            <div class="user-profile-editor">
+                <img class="cover-pic-editor" src= <%=user.coverPic == "" ? "/images/nightsky.jpg" : "/user_images/" + user._id + "/coverPic/" + user.coverPic %> >
+                <img  class="display-pic-editor" src= <%=user.displayPic == "" ? "/images/nightsky.jpg" : "/user_images/" + user._id + "/displayPic/" + user.displayPic %>>
+                <label for="edit-cover-pic" class="edit-cover-pic-label">edit</label>
+                <input type="file" class="edit-cover-pic" id="edit-cover-pic" name="coverPic">
+                <label for="edit-display-pic" class="edit-display-pic-label">edit</label>
+                <input type="file" class="edit-display-pic" id="edit-display-pic" name="displayPic">
+
+                <div class="name-editor form-group">
+                    <input type="text" class="input-name inputText" placeholder="Name" name="name" class="input-name" value=<%= user.name %> >
+                </div>
+                
+                <div class="bio-editor form-group">
+                    <input type="text" class="inputText" placeholder="Add Bio" name="bio" value=<%= user.bio %> >
+                </div>
+            </div>
+
+            <div class="user-details-editor">
+
+                <!-- <div class="form-group">
+                    <label for="" class="label-group">College:</label>
+                    <input type="text" class="inputText" name="college" placeholder='College' value=<%=user.college%>>
+
+                </div> -->
+                <div class="form-group">
+                    <label for="" class="label-group">Department:</label>
+                    <input type="text" class="inputText" name="department" placeholder='Department' value=<%=user.department%>>
+
+                </div>
+                <div class="form-group">
+                    <label for="" class="label-group">Email:</label>
+                    <input type="text" class="inputText" name="email" placeholder='Email' value=<%=user.email%>>
+
+                </div>
+                <div class="form-group">
+                    <label for="" class="label-group">Contact No.:</label>
+                    <input type="text" class="inputText" name="phone" placeholder='Contact No.' value=<%=user.phone%>>
+
+                </div>
+                <!-- <div class="div-group">
+                    <label for="" class="label-group">Branch : <%= user.name %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Email : <%= user.email %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Contact No.: <%= user.phone %></label>
+                </div> -->
+            </div>
+            <button class="cancel-edit editor-btns" >cancel</button>
+            <input type="submit" class="save-edit editor-btns">
+            <!-- <button class="save-edit editor-btns" >save</button> -->
+
+        </form>
+        
+    </div>
+    <div class="stage">
+        <div class="left-stage">left
+
+            
+            
+        </div>
+        <div class="center-stage">
+
+            <div class="user-profile">
+                <img class="cover-pic" src= <%=user.coverPic == "" ? "/images/nightsky.jpg" : "/user_images/" + user._id + "/coverPic/" + user.coverPic %> >
+                <img  class="display-pic" src= <%=user.displayPic == "" ? "/images/nightsky.jpg" : "/user_images/" + user._id + "/displayPic/" + user.displayPic %>>
+                <!-- <label for="edit-cover-pic" class="edit-cover-pic-label">edit</label>
+                <input type="file" class="edit-cover-pic" id="edit-cover-pic"> -->
+                <!-- <label for="edit-display-pic" class="edit-display-pic-label">edit</label>
+                <input type="file" class="edit-display-pic" id="edit-display-pic"> -->
+
+                <div class="name">
+                    <%= user.name %>
+                </div>
+                <div class="bio"><%= user.bio %></div>
+            </div>
+
+            <div class="user-details">
+
+                <!-- <div class="div-group">
+                    <label for="" class="label-group">College : <%= user.college %></label>
+                </div> -->
+                <div class="div-group">
+                    <label for="" class="label-group">Department : <%= user.department %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Email : <%= user.email %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Contact No.: <%= user.phone %></label>
+                </div>
+            </div>
+            <button class="edit-user-details" id="edit-user-details">edit profile</button>
+
+            <hr>
+
+            <%- include ('partials/content.ejs')%>
+
+
+            middle
+        </div>
+        <div class="right-stage">right</div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/js/profile.js"></script>
+</body>
+
+</html>

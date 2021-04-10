@@ -1,0 +1,64 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+nav{
+    display: flex;
+    /* background-image: url(https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=500&q=60); */
+    background-image: url(../images/nightsky.jpg);
+    color: white;
+    font : 1.5em bold;
+    padding: 2%;
+}
+
+nav{
+    display: flex;
+}
+#leftNav{
+    width: 50%;
+    list-style: none;
+    display: flex;
+}
+
+#leftNav li{
+    display: flex;
+    padding: 0% 5%;
+}
+#rightNav{
+    display: flex;
+    list-style: none;
+    flex-direction: row-reverse;
+    width: 50%;
+}
+#rightNav li{
+    display: flex;
+    padding: 0% 5%;
+}
+
+.stage{
+    display: flex;
+    padding: 10% 20%;
+    align-items: center;
+    justify-content: center;
+}
+.stage .innerBox{
+    display: flex;
+    background-color: blue;
+    padding: 5% 5%;
+    width: 100%;
+}
+#leftBox{
+    background-color: chartreuse;
+    width: 30%;
+}
+
+#rightBox{
+    /* display: flex; */
+    /* flex-direction: column; */
+    text-align: center;
+    background-color: red;
+    width: 70%;
+}
+#toggle{
+    text-align: right;
+}

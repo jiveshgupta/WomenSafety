@@ -1,0 +1,45 @@
+<div class="content-area">
+    <div class="init">init</div>
+    <div class="content-list">
+        <% complaintsList.slice().reverse().forEach(function(complaint){ %>
+            <a href="/complaint/<%= complaint._id %>" class="product-link" id='<%=complaint._id%>'>
+                <div class="content">
+                    <div class="author">
+                        <div class="author-pic"><img src="/user_images/<%= user._id %>/displayPic/<%= user.displayPic %>" alt="" class="author-img"></div>
+                        <div class="author-info">
+                            <div class="author-name">
+                                <%= complaint.authorName %>
+                            </div>
+                            <div class="author-contact">
+                                <%= complaint.authorEmail %> , <%= complaint.authorPhone %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-pic">
+                            <img src="./complaint_images/<%= complaint._id %>/<%= complaint.files[0] %>" alt="img"
+                                class="product-pic-img">
+                        </div>
+                        <div class="product-info">
+                            <!-- <div class="product-details"><span class="detail-headings"> price : </span><%= complaint.price %>
+                            </div> -->
+                            <div class="product-details"><span class="detail-headings"> complaint against : </span><%= complaint.accused %>
+                            </div>
+                            <div class="product-details"><span class="detail-headings"> description : </span><%= complaint.description %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="others">
+                        <span class="type">status :<%=complaint.status%></span>
+                        <!-- <div class="others-right">
+                            <a class="others-links" id="interested"><button>Interested</button></a>
+                            <a href= <%= user.cart.includes( complaint._id ) ? '/removeFromCart/' + complaint._id : '/addToCart/' + complaint._id  %> class="others-links addToCart"><button><%= user.cart.includes( complaint._id ) ? 'Remove from Cart' : 'Add to Cart' %></button></a>
+                        </div> -->
+
+                    </div>
+
+                </div>
+            </a>
+            <% }); %>
+    </div>
+</div>

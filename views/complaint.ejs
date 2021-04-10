@@ -1,0 +1,110 @@
+<%- include ('partials/header.ejs')%>
+
+            <div class="stage">
+                <div class="left-stage">left</div>
+                <div class="center-stage">
+                    <div class="content-area">
+                        <div class="init">init</div>
+                        <h2>Complaint Details</h2>
+                        <div class="product-div" id="product-div-id">
+                            <div class="div-group">
+                                <!-- jhii -->
+                                <div class="imageArea">
+                                    <button class="img-left">left</button>
+                                    <img src=<%=complaint.files.length == 0 ? "/images/nightsky.jpg" : "/complaint_images/" + complaint._id +"/" +  complaint.files[ 0 ]  %> alt="img" class="productImg">
+                                    <button class="img-right">right</button>
+                                    <span class="img-nums"><span class="img-index">1</span> of <span class="img-tot"><%=Object.keys( complaint.files).length%></span></span>
+                                </div>
+                                <br>
+                                <!-- <label for="" class="label-group">Image :</label> -->
+                                <!-- <input type="file" class="image" name="productImage" multiple id="img"> -->
+
+                            </div>
+
+
+                            <div class="div-group">
+                                <label for="" class="label-group">Name :</label>
+                                <%= complaint.authorName %>
+                            </div>
+
+                            <div class="div-group">
+                                <label for="" class="label-group"> Accused Persons :</label>
+                                <%complaint.accused.forEach(function(acc){%>
+                                    <div><%=acc%></div>
+                                <%});%>
+                            </div>
+                            
+
+                            <div class="div-group">
+                                <label for="" class="label-group">Date :</label>
+                                <%= complaint.date %>
+                            </div>
+                            <div class="div-group">
+                                <label for="types" class="label-group">Complainer Department :</label>
+                                <%= complaint.department %>
+                                    
+                            </div>
+                            <div class="div-group">
+                                <div><label for="" class="label-group">Complaint Description :</label></div>
+                                <%= complaint.description %>
+                                    <!-- <textarea name="productDescription" id="" cols="30" rows="10" class="inputText textArea"
+                            placeholder="Description" div="product-div-id"></textarea> -->
+
+                            </div>
+                            <h2>Contact Details</h2>
+
+                            <div class="div-group">
+                                <label for="" class="label-group">Phone No. :</label>
+                                <%= complaint.authorPhone %>
+                                    <!-- <input type="text" class="inputText" name="authorPhoneNo" placeholder="default no."> -->
+
+                            </div>
+                            <div class="div-group">
+                                <label for="" class="label-group">Email id :</label>
+                                <%= complaint.authorEmail%>
+                                    <!-- <input type="text" class="inputText" name="authorEmail" placeholder="default email"> -->
+
+                            </div>
+                            <div class="div-group">
+                                <!-- <input type="submit" class="submit-btn"> -->
+                                <button class="submit-btn">complaint.status</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    middle
+                </div>
+                <div class="right-stage">right</div>
+            </div>
+
+
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <!-- <script src="/js/product.js"></script> -->
+            <script>
+                var im;
+                var index;
+                var tot = parseInt($('.img-tot').text());
+
+                $(".img-left").click(function () {
+                    index = parseInt($('.img-index').text());
+                    if (index > 1) {
+                        index = index - 1;
+                        divid = `#${index-1}`;im=$(`${divid}`).text();
+                        $('.productImg').attr('src', `/complaint_images/<%= complaint._id %>/${im} %>`);
+                        $('.img-index').text(index);
+                    }
+                });
+                $(".img-right").click(function () {
+                    index = parseInt($('.img-index').text());
+                    if (index < tot) {
+                        index = index + 1;divid = `#${index-1}`;im=$(`${divid}`).text();
+                        $('.productImg').attr('src', `/complaint_images/<%= complaint._id %>/${im} %>`);
+                        $('.img-index').text(index);
+                    }
+                });
+            </script>
+</body>
+
+</html>
