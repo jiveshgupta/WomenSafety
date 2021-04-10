@@ -3,7 +3,7 @@
 # Inroduction
 The main idea of project is to provide ease of access to lodge a complaint in case of sexual harassment at workplace. 
 Know the real time status of the complaint filed .
-Send SOS e-mails to added contacts .
+Send "SOS e-mails" to added contacts with "LIVE LOCATION" of the user.
 
 Note- For login as administator. Login Id - admin@gmail.com, password - admin and click the checkbox
 
