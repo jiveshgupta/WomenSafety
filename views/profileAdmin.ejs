@@ -1,0 +1,100 @@
+<%- include ('partials/headerAdmin.ejs') %>
+    <div class="edito">
+        <div class="left-stage-editor"></div>
+        <div class="right-stage-editor"></div>
+        <form action="/admin/updateAdminProfile"  enctype="multipart/form-data" class="editi" method="POST">
+            <div class="user-profile-editor">
+                <img class="cover-pic-editor" src= <%=admin.coverPic == "" ? "/images/nightsky.jpg" : "/admin_images/" + admin._id + "/coverPic/" + admin.coverPic %> >
+                <img  class="display-pic-editor" src= <%=admin.displayPic == "" ? "/images/nightsky.jpg" : "/admin_images/" + admin._id + "/displayPic/" + admin.displayPic %>>
+                <label for="edit-cover-pic" class="edit-cover-pic-label">edit</label>
+                <input type="file" class="edit-cover-pic" id="edit-cover-pic" name="coverPic">
+                <label for="edit-display-pic" class="edit-display-pic-label">edit</label>
+                <input type="file" class="edit-display-pic" id="edit-display-pic" name="displayPic">
+
+                <div class="name-editor form-group">
+                    <input type="text" class="input-name inputText" placeholder="Name" name="name" class="input-name" value=<%= admin.name %> >
+                </div>
+                
+                <div class="bio-editor form-group">
+                    <input type="text" class="inputText" placeholder="Add Bio" name="bio" value=<%= admin.bio %> >
+                </div>
+            </div>
+
+            <div class="user-details-editor">
+
+                <div class="form-group">
+                    <label for="" class="label-group">Department:</label>
+                    <input type="text" class="inputText" name="department" placeholder='Department' value=<%=admin.department%>>
+
+                </div>
+                <div class="form-group">
+                    <label for="" class="label-group">Email:</label>
+                    <input type="text" class="inputText" name="email" placeholder='Email' value=<%=admin.email%>>
+
+                </div>
+                <div class="form-group">
+                    <label for="" class="label-group">Contact No.:</label>
+                    <input type="text" class="inputText" name="phone" placeholder='Contact No.' value=<%=admin.phone%>>
+
+                </div>
+                
+            </div>
+            <button class="cancel-edit editor-btns" >cancel</button>
+            <input type="submit" class="save-edit editor-btns">
+            <!-- <button class="save-edit editor-btns" >save</button> -->
+
+        </form>
+        
+    </div>
+    <div class="stage">
+        <div class="left-stage">left
+
+            
+            
+        </div>
+        <div class="center-stage">
+
+            <div class="user-profile">
+                <img class="cover-pic" src= <%=admin.coverPic == "" ? "/images/nightsky.jpg" : "/admin_images/" + admin._id + "/coverPic/" + admin.coverPic %> >
+                <img  class="display-pic" src= <%=admin.displayPic == "" ? "/images/nightsky.jpg" : "/admin_images/" + admin._id + "/displayPic/" + admin.displayPic %>>
+                <!-- <label for="edit-cover-pic" class="edit-cover-pic-label">edit</label>
+                <input type="file" class="edit-cover-pic" id="edit-cover-pic"> -->
+                <!-- <label for="edit-display-pic" class="edit-display-pic-label">edit</label>
+                <input type="file" class="edit-display-pic" id="edit-display-pic"> -->
+
+                <div class="name">
+                    <%= admin.name %>
+                </div>
+                <div class="bio"><%= admin.bio %></div>
+            </div>
+
+            <div class="user-details">
+
+                <div class="div-group">
+                    <label for="" class="label-group">Department : <%= admin.department %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Email : <%= admin.email %></label>
+                </div>
+                <div class="div-group">
+                    <label for="" class="label-group">Contact No.: <%= admin.phone %></label>
+                </div>
+            </div>
+            <button class="edit-user-details" id="edit-user-details">edit profile</button>
+
+            <hr>
+
+
+            middle
+        </div>
+        <div class="right-stage">right</div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/js/profileAdmin.js"></script>
+</body>
+
+</html>

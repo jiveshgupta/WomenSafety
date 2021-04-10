@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const admins = require('./admins');
+const users = require('./users');
 const complaints = require('./complaints');
-const usersSchema = mongoose.Schema({
+const adminsSchema = mongoose.Schema({
     name:{
         type: String
     },
@@ -14,15 +14,7 @@ const usersSchema = mongoose.Schema({
     phone:{
         type: String
     },
-    contactList:[{
-        type: String
-        // type: mongoose.Schema.Types.ObjectId, ref: 'products' 
-    }],
-    cart:[{
-        type: mongoose.Schema.Types.ObjectId, ref: 'complaints'
-    }]
-    ,
-    department: {
+    department:{
         type: String
     },
     displayPic:{
@@ -39,5 +31,5 @@ const usersSchema = mongoose.Schema({
     }
 });
 
-const users= mongoose.model('users', usersSchema);
-module.exports = users;
+const admins= mongoose.model('admins', adminsSchema);
+module.exports = admins;

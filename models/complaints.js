@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-
+const admins = require('./admins');
 const users = require('./users');
 const complaintsSchema = mongoose.Schema({
     authorId:{
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: 'users'
     }
     ,authorName:{
         type: String

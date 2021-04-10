@@ -40,8 +40,10 @@ mongoose
         console.log(err);
     });
 
+const admins = require('./models/admins');
 const users = require('./models/users');
 const complaints = require('./models/complaints');
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,15 +62,18 @@ app.use(session({
     cookie: { secure: true }
 }));
 
+const adminRoutes = require('./routes/admin.js');
 
-app.get('/', async (req,res) => {
+app.use('/admin', adminRoutes);
+
+app.get('/', async (req, res) => {
     res.render('root.ejs');
 });
 
 
-app.post('/signUp', async(req, res) => {
-    
-    res.cookie('isLogined',false);
+app.post('/signUp', async (req, res) => {
+
+    res.cookie('isLogined', false);
     // req.session.isLogined=false;
     var userBody = req.body;
     if (userBody.password) {
@@ -104,24 +109,47 @@ app.get('/allComplaints', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-    
+
     var userQuery = req.query;
+    console.log(userQuery);
     try {
-        var user = await users.findOne({ email: userQuery.email, password: userQuery.password }).exec();
-        // console.log(`details ${userQuery.email} ${userQuery.password} hello `);
-        if (user) {
-            console.log('user is', user);
-            
-            res.cookie('isLogined',true);
-            res.cookie('userId',user._id);
-            console.log(req.cookies);
-            
-            // res.redirect('/allComplaints');
-            res.redirect('/home');
+        if (userQuery.isAdmin) {
+            var admin = await admins.findOne({ email: userQuery.email, password: userQuery.password }).exec();
+            // console.log(`details ${userQuery.email} ${userQuery.password} hello `);
+            if (admin) {
+                console.log('admin is', admin);
+
+                // res.cookie('isLogined', true);
+                res.cookie('isAdmin', true);
+                res.cookie('adminId', admin._id);
+                console.log(req.cookies);
+
+                // res.redirect('/allComplaints');
+                res.redirect('/admin/home');
+            }
+            else {
+                // alert(`incorrect login datails`);
+                res.send('login failed');
+            }
+
         }
         else {
-            // alert(`incorrect login datails`);
-            res.send('login failed');
+            var user = await users.findOne({ email: userQuery.email, password: userQuery.password }).exec();
+            // console.log(`details ${userQuery.email} ${userQuery.password} hello `);
+            if (user) {
+                console.log('user is', user);
+
+                res.cookie('isLogined', true);
+                res.cookie('userId', user._id);
+                console.log(req.cookies);
+
+                // res.redirect('/allComplaints');
+                res.redirect('/home');
+            }
+            else {
+                // alert(`incorrect login datails`);
+                res.send('login failed');
+            }
         }
     }
     catch (error) {
@@ -138,168 +166,171 @@ app.get('/login', async (req, res) => {
 app.get('/home', async (req, res) => {
 
     var { isLogined = false } = req.cookies;
-    if( isLogined !== 'true'){
+    if (isLogined !== 'true') {
         res.redirect('/');
     }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-        var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'home.css'];
-    // try {
-        var complaintsList = await complaints.find({ authorEmail: user.email });
-        // let keys = [];
-        // let lPrice = "";
-        // let hPrice = "";
-        // console.log(user, typeof (complaintsList), complaintsList.length);
-        res.render('home.ejs', { user, complaintsList, cssFiles });
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
 
-    } catch (error) {
-        console.log('error', error);
+            var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'home.css'];
+            // try {
+            var complaintsList = await complaints.find({ authorEmail: user.email }).populate('authorId');
+            console.log(complaintsList);
+            res.render('home.ejs', { user, complaintsList, cssFiles });
+
+        } catch (error) {
+            console.log('error', error);
+        }
     }
-}
 });
+
+
+
 
 app.get('/profile', async (req, res) => {
     var { isLogined = false } = req.cookies;
     // req.session.isLogined=false;
     // console.log(req.session.isLogined);
-    if( isLogined !== 'true'){
+    if (isLogined !== 'true') {
         res.redirect('/');
-        
-    }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-    var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'profile.css'];
-    try {
-        var complaintsList = await complaints.find({ authorEmail: user.email });
-        // let keys = [];
-        // let lPrice = "";
-        // let hPrice = "";
-        res.render('profile.ejs', { user, complaintsList,cssFiles  });
 
     }
-    catch (error) {
-        console.log('error', error);
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
+
+            var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'profile.css'];
+            try {
+                var complaintsList = await complaints.find({ authorEmail: user.email }).populate('authorId');
+                // let keys = [];
+                // let lPrice = "";
+                // let hPrice = "";
+                res.render('profile.ejs', { user, complaintsList, cssFiles });
+
+            }
+            catch (error) {
+                console.log('error', error);
+            }
+        }
+        catch (error) { console.log(error); }
     }
-}
-catch(error){console.log(error);}}
 });
 
 
 app.post('/updateUserProfile', async (req, res) => {
     var { isLogined = false } = req.cookies;
-    
-    if( isLogined !== 'true'){
+
+    if (isLogined !== 'true') {
         res.redirect('/');
     }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-    // console.log('after getting user', typeof (req.file), typeof(req.files), req.files);
-    if(req.files == null){
-        
-    var cpname = "";
-    var dpname = "";
-    }else {
-    var dp = req.files.displayPic;
-    var cp = req.files.coverPic;
-    var cpname = typeof(cp) !== 'undefined' ? cp.name : "";
-    var dpname = typeof(dp) !== 'undefined' ? dp.name : "";
-    
-}
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
+
+            // console.log('after getting user', typeof (req.file), typeof(req.files), req.files);
+            if (req.files == null) {
+
+                var cpname = "";
+                var dpname = "";
+            } else {
+                var dp = req.files.displayPic;
+                var cp = req.files.coverPic;
+                var cpname = typeof (cp) !== 'undefined' ? cp.name : "";
+                var dpname = typeof (dp) !== 'undefined' ? dp.name : "";
+
+            }
 
 
-    try {
-        
-        var oldcp=user.coverPic;
-        var olddp=user.displayPic;
-        user.name = req.body.name;
-        user.email = req.body.email,
-        user.phone = req.body.phone;
-        user.college = req.body.college;
-        user.branch = req.body.branch;
-        user.bio = req.body.bio;
-        if (dpname != "") {
-            user.displayPic = dpname;
-        }
-        if (cpname != "") {
-            user.coverPic = cpname;
-        }
-        // console.log('dp cp', olddp, oldcp, dpname , cpname, 'user to be saved', user);
+            try {
 
-        await user.save()
-            .then(user => {
-                console.log(`${user} updated`);
-
-                fs.mkdirSync(`public/user_images/${user._id}/coverPic`
-                ,{ recursive: true }
-                
-                    );
-
-                if (cpname != "") {
-
-                    // if (imageFile != "") {
-                        if (oldcp != "") {
-                            fs.unlinkSync('public/user_images/' + user._id + '/coverPic/' + oldcp
-                            // , function (err) {
-                            //     if (err)
-                            //         console.log(err);
-                            // }
-                            );
-                        }
-                        var path = 'public/user_images/' + user._id + '/coverPic/' + cp.name;
-                    cp.mv(path, function (err) {
-                        return console.log(err);
-                    });
-                    console.log('cp moved');
-                }
-
-                fs.mkdirSync(`public/user_images/${user._id}/displayPic`
-                    ,{ recursive: true }
-                    // , (err) => {
-                    //     if (err) {
-                    //         return console.error(err);
-                    //     }
-                    //     console.log('dp Directory created successfully!');
-                    // }
-                    );
-                console.log('dp Directory created successfully!');
-                    
+                var oldcp = user.coverPic;
+                var olddp = user.displayPic;
+                user.name = req.body.name;
+                user.email = req.body.email,
+                    user.phone = req.body.phone;
+                user.college = req.body.college;
+                user.branch = req.body.branch;
+                user.bio = req.body.bio;
                 if (dpname != "") {
-
-                    if (olddp != "") {
-                        fs.unlinkSync('public/user_images/' + user._id + '/displayPic/' + olddp
-                        // , function (err) {
-                        //     if (err)
-                        //         console.log(err);
-                        // }
-                        );
-                    }
-                    var path = 'public/user_images/' + user._id + '/displayPic/' + dp.name;
-                    dp.mv(path, function (err) {
-                        return console.log(err);
-                    });
-                    console.log('dp moved');
+                    user.displayPic = dpname;
                 }
-                console.log('going to redirect');
-                res.redirect(`/profile`);
-            })
-            .catch(err => {
-                console.log(err);
-            });;
+                if (cpname != "") {
+                    user.coverPic = cpname;
+                }
+                // console.log('dp cp', olddp, oldcp, dpname , cpname, 'user to be saved', user);
 
+                await user.save()
+                    .then(user => {
+                        console.log(`${user} updated`);
+
+                        fs.mkdirSync(`public/user_images/${user._id}/coverPic`
+                            , { recursive: true }
+
+                        );
+
+                        if (cpname != "") {
+
+                            // if (imageFile != "") {
+                            if (oldcp != "") {
+                                fs.unlinkSync('public/user_images/' + user._id + '/coverPic/' + oldcp
+                                    // , function (err) {
+                                    //     if (err)
+                                    //         console.log(err);
+                                    // }
+                                );
+                            }
+                            var path = 'public/user_images/' + user._id + '/coverPic/' + cp.name;
+                            cp.mv(path, function (err) {
+                                return console.log(err);
+                            });
+                            console.log('cp moved');
+                        }
+
+                        fs.mkdirSync(`public/user_images/${user._id}/displayPic`
+                            , { recursive: true }
+                            // , (err) => {
+                            //     if (err) {
+                            //         return console.error(err);
+                            //     }
+                            //     console.log('dp Directory created successfully!');
+                            // }
+                        );
+                        console.log('dp Directory created successfully!');
+
+                        if (dpname != "") {
+
+                            if (olddp != "") {
+                                fs.unlinkSync('public/user_images/' + user._id + '/displayPic/' + olddp
+                                    // , function (err) {
+                                    //     if (err)
+                                    //         console.log(err);
+                                    // }
+                                );
+                            }
+                            var path = 'public/user_images/' + user._id + '/displayPic/' + dp.name;
+                            dp.mv(path, function (err) {
+                                return console.log(err);
+                            });
+                            console.log('dp moved');
+                        }
+                        console.log('going to redirect');
+                        res.redirect(`/profile`);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });;
+
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        catch (error) { console.log(error); }
     }
-    catch (error) {
-        console.log(error);
-    }}
-    catch(error){console.log(error);}}
 
 });
 
@@ -310,131 +341,134 @@ app.get('/fileComplaint', async (req, res) => {
     var { isLogined = false } = req.cookies;
     // req.session.isLogined=false;
     // console.log(req.session.isLogined);
-    if( isLogined !== 'true'){
+    if (isLogined !== 'true') {
         res.redirect('/');
-        
+
     }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-    var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'fileComplaint.css'];
-    res.render('fileComplaint.ejs', { user, cssFiles });
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
+
+            var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'fileComplaint.css'];
+            res.render('fileComplaint.ejs', { user, cssFiles });
         }
-        catch(error){console.log(error);}}
+        catch (error) { console.log(error); }
+    }
 });
 
 
 
 app.get('/complaint/:cid', async (req, res) => {
     var { isLogined = false } = req.cookies;
-    if( isLogined !== 'true'){
+    if (isLogined !== 'true') {
         res.redirect('/');
     }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-    var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'complaint.css'];
-    var qw = req.params;
-    try {
-        var complaint = await complaints.findById(qw.cid).exec();
-        console.log(complaint);
-        res.render('complaint.ejs', { user, complaint, cssFiles });
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
+
+            var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'complaint.css'];
+            var qw = req.params;
+            try {
+                var complaint = await complaints.findById(qw.cid).exec();
+                console.log(complaint);
+                res.render('complaint.ejs', { user, complaint, cssFiles });
+            }
+            catch (error) {
+                console.log('error', error);
+            }
+        }
+        catch (error) { console.log(error); }
     }
-    catch (error) {
-        console.log('error', error);
-    }
-}
-catch(error){console.log( error);}}
 });
 
 
 
 
 app.post('/complaint', async (req, res) => {
-    var reqbody=req.body;
+    var reqbody = req.body;
     console.log(reqbody.name),
-    res.render('root.ejs');
+        res.render('root.ejs');
 });
 
 
 app.post('/posting', async (req, res) => {
     var { isLogined = false } = req.cookies;
-    if( isLogined !== 'true'){
+    if (isLogined !== 'true') {
         res.redirect('/');
     }
-    else{
-        var userId=req.cookies.userId;
-        try{
-            var user= await users.findById(userId).exec();
-        
-    var pImage = req.files.files;
-    // console.log(typeof pImage);
-    // console.log(pImage);
+    else {
+        var userId = req.cookies.userId;
+        try {
+            var user = await users.findById(userId).exec();
 
-    // console.log(pImage.length);
-    var accusedList = req.body.accused.split(",");
-    imgNames = [];
-    if (pImage.length == undefined) {
-        pImage = [pImage];
-    }
-    pImage.forEach(function (pimage) {
-        imgNames.push(pimage.name);
-    });
-    console.log(req.body.description);
-    var complaint = new complaints({
-        authorId: user._id,
-        authorName: user.name,
-        authorEmail: req.body.authorEmail,
-        authorPhone: req.body.authorPhoneNo,
-        department: req.body.department,
-        date: req.body.date, 
-        files: imgNames,
-        accused: accusedList,
-        description: req.body.description,
-        status: 'pending'
-    });
+            var pImage = req.files.files;
+            // console.log(typeof pImage);
+            // console.log(pImage);
 
-    // prodect.save();
-    complaint.save(function (err) {
-        if (err)
-            return console.log(err);
-        // console.log(complaint);
-
-        fs.mkdir(`public/complaint_images/${complaint._id}`,
-            { recursive: true }, (err) => {
-                if (err) {
-                    return console.error(err);
-                }
-                console.log('Directory created successfully!');
+            // console.log(pImage.length);
+            var accusedList = req.body.accused.split(",");
+            imgNames = [];
+            if (pImage.length == undefined) {
+                pImage = [pImage];
+            }
+            pImage.forEach(function (pimage) {
+                imgNames.push(pimage.name);
+            });
+            console.log(req.body.description);
+            var complaint = new complaints({
+                authorId: user._id,
+                authorName: user.name,
+                authorEmail: req.body.authorEmail,
+                authorPhone: req.body.authorPhoneNo,
+                department: req.body.department,
+                date: req.body.date,
+                files: imgNames,
+                accused: accusedList,
+                description: req.body.description,
+                status: 'pending'
             });
 
-
-        pImage.forEach(function (pimage) {
-            var imageFile = pimage.name;
-            if (imageFile != "") {
-                var path = 'public/complaint_images/' + complaint._id + '/' + imageFile;
-                pimage.mv(path, function (err) {
+            // prodect.save();
+            complaint.save(function (err) {
+                if (err)
                     return console.log(err);
+                // console.log(complaint);
+
+                fs.mkdir(`public/complaint_images/${complaint._id}`,
+                    { recursive: true }, (err) => {
+                        if (err) {
+                            return console.error(err);
+                        }
+                        console.log('Directory created successfully!');
+                    });
+
+
+                pImage.forEach(function (pimage) {
+                    var imageFile = pimage.name;
+                    if (imageFile != "") {
+                        var path = 'public/complaint_images/' + complaint._id + '/' + imageFile;
+                        pimage.mv(path, function (err) {
+                            return console.log(err);
+                        });
+                    }
                 });
-            }
-        });
-        res.redirect('/home');
+                res.redirect('/home');
 
-    });
+            });
 
-}
-catch(error){console.log(error);}}
+        }
+        catch (error) { console.log(error); }
+    }
 });
 
 
 
 
 app.get('/logout', (req, res) => {
-    res.cookie('isLogined',false);
+    res.cookie('isLogined', false);
     res.redirect('/');
 });
 
