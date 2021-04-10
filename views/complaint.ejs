@@ -1,6 +1,10 @@
 <%- include ('partials/header.ejs')%>
 
             <div class="stage">
+                <div class="info">
+                    <%for( const pindx  in Object.keys(complaint.files)){ %>
+                    <div id="<%=pindx%>"><%= complaint.files[pindx] %></div>
+                    <%};%>  </div>
                 <div class="left-stage">left</div>
                 <div class="center-stage">
                     <div class="content-area">
@@ -106,6 +110,8 @@
                     }
                 });
             </script>
+            
+    <script src="/js/style.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,11 @@
 <%- include ('partials/headerAdmin.ejs')%>
 
             <div class="stage">
+                
+                <div class="info">
+                    <%for( const pindx  in Object.keys(complaint.files)){ %>
+                    <div id="<%=pindx%>"><%= complaint.files[pindx] %></div>
+                    <%};%>  </div>
                 <div class="left-stage">left</div>
                 <div class="center-stage">
                     <div class="content-area">
@@ -67,8 +72,17 @@
                             </div>
                             
                             <div class="div-group">
+                                <form action="/admin/changeStatus/<%= complaint._id %>" method="POST">
+                                    <label for="types" class="label-group">Complain Status :</label>
+                                    <select name="status"  class="typeList" >
+                                        <option value="pending" <%= complaint.status == 'acknowledged' ? 'selected' : '' %>>pending</option>
+                                        <option value="acknowledged" <%= complaint.status == 'acknowledged' ? 'selected' : '' %>>acknowledged</option>
+                                        <option value="investigating" <%= complaint.status == 'investigating' ? 'selected' : '' %>>investigating</option>
+                                        <option value="cleared" <%= complaint.status == 'cleared' ? 'selected' : '' %>>cleared</option>
+                                        
+                                    </select>
                                 <!-- <input type="submit" class="submit-btn"> -->
-                                <button class="submit-btn"><%=complaint.status%></complaint.status></button>
+                                <button class="submit-btn" type="submit">Save</complaint.status></button>
                             </div>
 
                         </div>

@@ -15,13 +15,8 @@ const usersSchema = mongoose.Schema({
         type: String
     },
     contactList:[{
-        type: String
-        // type: mongoose.Schema.Types.ObjectId, ref: 'products' 
+        type: String 
     }],
-    cart:[{
-        type: mongoose.Schema.Types.ObjectId, ref: 'complaints'
-    }]
-    ,
     department: {
         type: String
     },

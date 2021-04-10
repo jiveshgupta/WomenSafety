@@ -10,6 +10,8 @@ var busboy = require('connect-busboy');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
+const nodemailer = require("nodemailer");
+
 const port = 3000;
 
 
@@ -246,14 +248,23 @@ app.post('/updateUserProfile', async (req, res) => {
 
 
             try {
-
+                var mailList=[];
+                // console.log('old',user.contactList,'old');
+                for(var i=1; i<=10; i++){
+                    var kk= "mail_"+i;
+                    if(req.body[kk] !== "")
+                        mailList.push(req.body[kk]);
+                    // console.log(kk, req.body[kk]);
+                }
+                // console.log(mailList);
+                // console.log(req.body.mail_10);
+                req.body['mail']
                 var oldcp = user.coverPic;
                 var olddp = user.displayPic;
                 user.name = req.body.name;
                 user.email = req.body.email,
-                    user.phone = req.body.phone;
-                user.college = req.body.college;
-                user.branch = req.body.branch;
+                user.phone = req.body.phone;
+                user.contactList=mailList;
                 user.bio = req.body.bio;
                 if (dpname != "") {
                     user.displayPic = dpname;
@@ -392,6 +403,109 @@ app.post('/complaint', async (req, res) => {
     console.log(reqbody.name),
         res.render('root.ejs');
 });
+
+app.post('hello', async(req,res)=>{
+    console.log('hello');
+})
+
+
+app.post('/sendMail', async (req, res) => {
+    var { isLogined = false } = req.cookies;
+    if (isLogined !== 'true') {
+        res.redirect('/');
+    }
+    else {
+        var userId = req.cookies.userId;
+        try {
+            console.log("send mail");
+            var user = await users.findById(userId).exec();
+            let testAccount =  nodemailer.createTransport({
+                service : 'gmail',
+                auth:{
+                    user :'womensaftey933@gmail.com',
+                    pass:'123456@123456'
+                }
+            });
+            var reciever ="";
+            user.contactList.forEach(mailId =>{
+                let mailOptions={
+                    from:'womensaftey933@gmail.com',
+                    to: mailId,
+                    subject :'***** CALL FOR HELP ***** ',
+                    text:`your friend, ${user.name} urgently needs help. The users details are : \nNAME : ${user.name}, \nEmail : ${user.email}, \nPhone no. : ${user.phone}\n\n.Here is the location link : https:://google.com/maps?q=${req.body.latitude},${req.body.longitude} `
+                  
+                }
+                  testAccount.sendMail(mailOptions,function(error,info){
+                   if(error){
+                       console.log('error');
+                   }
+                   else{
+                       console.log('email send ' + info.response);
+                   }
+                  });
+            });
+            console.log(user.contactList.length , user.contactList , "qwerty******",user);
+          let mailOptions={
+              from:'womensaftey933@gmail.com',
+              to: user.email,
+              subject :'***** CALLED FOR HELP ***** ',
+              text:` WomenSafety has send mail regarding your URGENT CALL FOR HELP to ${user.contactList.length} of your friends as per your contact list.\nYour location link : https:://google.com/maps?q=${req.body.latitude},${req.body.longitude} `
+            
+          }
+            testAccount.sendMail(mailOptions,function(error,info){
+             if(error){
+                 console.log('error');
+             }
+             else{
+                 console.log('email send ' + info.response);
+             }
+            });
+          
+            
+        }
+        catch (error) { console.log(error); }
+    }
+});
+
+
+app.post('/sendMail',async(req,res)=>{
+  
+
+  let testAccount =  nodemailer.createTransport({
+      service : 'gmail',
+      auth:{
+          user :'womensaftey933@gmail.com',
+          pass:'123456@123456'
+      }
+  });
+let mailOptions={
+    from:'womensaftey933@gmail.com',
+    to:'mayankpatel80@gmail.com',
+    subject :'alert for location',
+    text:`https:://google.com/maps?q${req.body.latitude},${req.body.longitude}`
+  
+}
+  testAccount.sendMail(mailOptions,function(error,info){
+   if(error){
+       console.log('error');
+   }
+   else{
+       console.log('email send ' + info.response);
+   }
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.post('/posting', async (req, res) => {

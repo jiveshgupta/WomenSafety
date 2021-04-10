@@ -65,6 +65,69 @@ router.get('/profile', async (req, res) => {
         catch (error) { console.log(error); }
     }
 });
+router.get('/complaint/:cid', async (req, res) => {
+    var { isAdmin = false } = req.cookies;
+    if (isAdmin !== 'true') {
+        res.redirect('/');
+    }
+    else {
+        var adminId = req.cookies.adminId;
+        try {
+            var admin = await admins.findById(adminId).exec();
+
+            var cssFiles = ['style.css.css', 'leftStage.css', 'centerStage.css', 'rightStage.css', 'complaintAdmin.css'];
+            var qw = req.params;
+            try {
+                var complaint = await complaints.findById(qw.cid).exec();
+                console.log(complaint);
+                res.render('complaintAdmin.ejs', { admin, complaint, cssFiles });
+            }
+            catch (error) {
+                console.log('error', error);
+            }
+        }
+        catch (error) { console.log(error); }
+    }
+});
+
+router.post('/changeStatus/:cid', async (req, res) => {
+    var { isAdmin = false } = req.cookies;
+
+    if (isAdmin !== 'true') {
+        res.redirect('/');
+    }
+    else {
+        var qw = req.params;
+        var adminId = req.cookies.adminId;
+        try {
+            var admin = await admins.findById(adminId).exec();
+            var complaint = await complaints.findById(qw.cid).exec();
+
+            complaint.status = req.body.status;
+            
+
+
+            try {
+                    await complaint.save()
+                    .then(complaint => {
+                        console.log(`${complaint} updated`);
+
+                        res.redirect(`/admin/complaint/`+ qw.cid);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });;
+
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        catch (error) { console.log(error); }
+    }
+
+});
+
 
 
 router.post('/updateAdminProfile', async (req, res) => {

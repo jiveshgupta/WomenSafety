@@ -134,6 +134,7 @@
     background-color: lightslategray;
     width: 100%;
     height: 100%;
+    overflow-y: auto;
 }
 
 .user-profile-editor{
@@ -206,6 +207,7 @@
 }
 .inputText{
     font-size: 15px;
+    width: 70%;
 }
 .input-name{
     height: 28px;
@@ -237,6 +239,14 @@
     border-radius: 10px;
     margin: 0px 5px;
     position: relative;
+    bottom: 10px;
     left: 60%;
 }
 
+.contactList{
+    padding: 10px;
+    font-size: 20px;
+}
+.contactList p{
+    overflow-wrap: anywhere;
+}

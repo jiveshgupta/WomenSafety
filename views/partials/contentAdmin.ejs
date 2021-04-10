@@ -5,7 +5,7 @@
             <a href="/admin/complaint/<%= complaint._id %>" class="product-link" id='<%=complaint._id%>'>
                 <div class="content">
                     <div class="author">
-                        <div class="author-pic"><img src="/user_images/<%= complaint.authorId._id %>/displayPic/<%= complaint.authorId.displayPic %>" alt="" class="author-img"></div>
+                        <div class="author-pic"><img src=<%=complaint.authorId.displayPic == "" ? "/images/womenSafety.jpg" : "/user_images/" +  complaint.authorId._id + "/displayPic/" +  complaint.authorId.displayPic %> alt="" class="author-img"></div>
                         <div class="author-info">
                             <div class="author-name">
                                 <%= complaint.authorName %>
