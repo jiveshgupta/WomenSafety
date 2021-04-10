@@ -1,21 +1,22 @@
-
 <%- include ('partials/header.ejs')%>
-    
+
     <div class="stage">
-        <div class="left-stage">left</div>
+        <div class="left-stage"></div>
         <div class="center-stage">
             <div class="content-area">
                 <!-- <div class="init">init</div> -->
                 <h2>Complaint Details</h2>
-                <form action="/posting" enctype="multipart/form-data" class="product-form" id="product-form-id" method="POST">
+                <form action="/posting" enctype="multipart/form-data" class="product-form" id="product-form-id"
+                    method="POST">
                     <div class="form-group">
                         <!-- jhii -->
                         <div class="imageArea">
-                            <button class="img-left" >left</button>
-                            <img src="/images/nightsky.jpg" alt="img" class="productImg">
+                            <button class="img-left">left</button>
+                            <img src="/images/womenSafety.jpg" alt="img" class="productImg">
                             <button class="del-img">delete</button>
                             <button class="img-right">right</button>
-                            <span class="img-nums"><span class="img-index">0</span> of <span class="img-tot">0</span></span>
+                            <span class="img-nums"><span class="img-index">0</span> of <span
+                                    class="img-tot">0</span></span>
                         </div>
                         <br>
                         <label for="img" class="label-group add-img"> Add Image </label>
@@ -35,37 +36,39 @@
 
                     </div> -->
 
-                    
+
 
                     <div class="form-group">
                         <label for="" class="label-group">Name :</label>
-                          <input type="text" class="inputText" name="name" placeholder="Name" />
+                        <input type="text" class="inputText" name="name" placeholder="Name" />
 
                     </div>
                     <div class="form-group">
                         <label for="" class="label-group">Date of complaint :</label>
-                        <input type="date" class="inputText" name="date" required placeholder="Date"/>
+                        <input type="date" class="inputText" name="date" required placeholder="Date" />
                     </div>
 
                     <div class="form-group">
-                      <label for="types" class="label-group">Department :</label>
-                      <select name="department" id="types" form="product-form-id" class="typeList">
-                          <option value="DepartmentA">DepartmentA</option>
-                          <option value="DepartmentB">DepartmentB</option>
-                          <option value="DepartmentC">DepartmentC</option>
-                          <option value="DepartmentD">DepartmentD</option>
-                          <option value="DepartmentE">DepartmentE</option>
+                        <label for="types" class="label-group">Department :</label>
+                        <select name="department" id="types" form="product-form-id" class="typeList">
+                            <option value="DepartmentA">N/A</option>
+                            <option value="DepartmentA">DepartmentA</option>
+                            <option value="DepartmentB">DepartmentB</option>
+                            <option value="DepartmentC">DepartmentC</option>
+                            <option value="DepartmentD">DepartmentD</option>
+                            <option value="DepartmentE">DepartmentE</option>
 
-                      </select>
+                        </select>
 
-                  </div>
+                    </div>
 
-                  <div class="form-group">
-                    <div><label for="" class="label-group">The person(s) involved in this complaint are (fill names separated with comma (',')):</label></div>
-                    <textarea name="accused" id="" cols="30" rows="5" class="inputText textArea"
-                        placeholder="Accused" form="product-form-id"></textarea>
+                    <div class="form-group">
+                        <div><label for="" class="label-group">The person(s) involved in this complaint are (fill names
+                                separated with comma (',')):</label></div>
+                        <textarea name="accused" id="" cols="30" rows="5" class="inputText textArea"
+                            placeholder="Accused" form="product-form-id"></textarea>
 
-                </div>
+                    </div>
 
                     <div class="form-group">
                         <div><label for="" class="label-group">Complaint Description :</label></div>
@@ -77,32 +80,33 @@
 
                     <div class="form-group">
                         <label for="" class="label-group">Phone No. :</label>
-                        <input type="text" class="inputText" name="authorPhoneNo" placeholder='Phone No.' value=<%=user.phone%>>
+                        <input type="text" class="inputText" name="authorPhoneNo" placeholder='Phone No.'
+                            value=<%=user.phone%>>
 
                     </div>
                     <div class="form-group">
                         <label for="" class="label-group">Email id :</label>
-                        <input type="text" class="inputText" name="authorEmail" placeholder='email' value=<%=user.email%>>
+                        <input type="text" class="inputText" name="authorEmail" placeholder='email'
+                            value=<%=user.email%>>
 
                     </div>
                     <div class="form-group">
                         <!-- <input type="submit" class="submit-btn"> -->
                         <button class="submit-btn">Post</button>
                     </div>
-                    
+
                 </form>
             </div>
-            middle
         </div>
-        <div class="right-stage">right</div>
+        <div class="right-stage"></div>
     </div>
 
 
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="/js/fileComplaint.js"></script>
-        <script src="/js/style.js"></script>
-</body>
+    <script src="/js/fileComplaint.js"></script>
+    <script src="/js/style.js"></script>
+    </body>
 
-</html>
+    </html>

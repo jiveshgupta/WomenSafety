@@ -5,7 +5,7 @@
                     <%for( const pindx  in Object.keys(complaint.files)){ %>
                     <div id="<%=pindx%>"><%= complaint.files[pindx] %></div>
                     <%};%>  </div>
-                <div class="left-stage">left</div>
+                <div class="left-stage"></div>
                 <div class="center-stage">
                     <div class="content-area">
                         <!-- <div class="init">init</div> -->
@@ -15,7 +15,7 @@
                                 <!-- jhii -->
                                 <div class="imageArea">
                                     <button class="img-left">left</button>
-                                    <img src=<%=complaint.files.length == 0 ? "/images/nightsky.jpg" : "/complaint_images/" + complaint._id +"/" +  complaint.files[ 0 ]  %> alt="img" class="productImg">
+                                    <img src=<%=complaint.files.length == 0 ? "/images/womenSafety.jpg" : "/complaint_images/" + complaint._id +"/" +  complaint.files[ 0 ]  %> alt="img" class="productImg">
                                     <button class="img-right">right</button>
                                     <span class="img-nums"><span class="img-index">1</span> of <span class="img-tot"><%=Object.keys( complaint.files).length%></span></span>
                                 </div>
@@ -77,9 +77,8 @@
 
                         </div>
                     </div>
-                    middle
                 </div>
-                <div class="right-stage">right</div>
+                <div class="right-stage"></div>
             </div>
 
 

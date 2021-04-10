@@ -4,7 +4,7 @@
     
     height: 100%;
     width: 18%;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     background: white;
     margin-top: 5px;
     background: transparent;
@@ -12,7 +12,7 @@
     left: 1%; */
 }
 .filters{
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
     padding: 5px;
     width: 90%;
     margin: auto;

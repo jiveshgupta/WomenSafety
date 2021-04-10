@@ -3,6 +3,9 @@
     padding: 0px;
     color: black;
 }
+body{
+    background-color: #afc4da;;
+}
 .navbar{
     display: flex;
     /* justify-content: center; */
@@ -70,6 +73,6 @@
     justify-content: space-evenly;
     /* height: 190vh;
     overflow: hidden; */
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background: #afc4da;
 }

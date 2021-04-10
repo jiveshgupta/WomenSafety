@@ -10,7 +10,7 @@
 
 .imageArea{
     position: relative;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 300px;
 }
 .img-left{
@@ -40,7 +40,7 @@ img{
     opacity: 0.5;
 }
 .img-index{
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
     /* position: absolute; */
     /* right: 6%; */
     /* bottom: 0; */
@@ -49,7 +49,7 @@ img{
     color: white;
 }
 .img-nums{
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
     position: absolute;
     right: 6%;
     bottom: 0;
@@ -70,7 +70,7 @@ img{
     display: none;
 }
 .add-img{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background: lightgrey;
     border-radius: 4px;
     margin: 15px;

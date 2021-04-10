@@ -16,7 +16,7 @@
 
 .imageArea{
     position: relative;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 300px;
 }
 .img-left{
@@ -41,7 +41,7 @@ img{
     cursor: pointer;
 }
 .img-index{
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
     /* position: absolute; */
     /* right: 6%; */
     /* bottom: 0; */
@@ -50,7 +50,7 @@ img{
     color: white;
 }
 .img-nums{
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
     position: absolute;
     right: 6%;
     bottom: 0;
@@ -59,7 +59,7 @@ img{
     color: white;
 }
 .img-tot{
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
     /* position: absolute;
     right: 6%;
     bottom: 0; */
