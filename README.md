@@ -21,6 +21,11 @@ Note- For login as administator. Login Id - admin@gmail.com, password - admin an
 9. nodemailer
 10. MongoDB
 
+# Installation guidlines
+1. Download the ZIP file
+2. Open terminal at folder and run the command npm install
+3. Run command npm start
+
 # Contributors
 1. Jivesh Gupta
 2. Ritwik
